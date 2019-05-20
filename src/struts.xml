@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.objectFactory" value="spring"/>
+
+    <!--配置一个表单所有上传文件的总大小为5K=5242880Byte-->
+    <!--<constant name="struts.multipart.maxSize" value="5242880"/>-->
+
+    <package name="struts1" extends="struts-default" namespace="/">
+        <action name="user_*" class="userAction" method="{1}">
+            <result name="login">/login.jsp</result>
+            <result name="success" type="redirect">/index.jsp</result>
+        </action>
+        <action name="customer_*" class="customerAction" method="{1}">
+            <result name="successSave" type="redirect">customer_findByPage.action</result>
+            <result name="findByPage">/jsp/customer/list.jsp</result>
+            <result name="deleteSuccess" type="redirect">customer_findByPage.action</result>
+            <result name="editSuccess">jsp/customer/edit.jsp</result>
+            <result name="successUpdate" type="redirect">customer_findByPage.action</result>
+
+            <!--拦截上传的表单中单个文件的大小和格式-->
+            <!--<interceptor-ref name="defaultStack">-->
+                <!--&lt;!&ndash;大小&ndash;&gt;-->
+                <!--<param name="fileUpload.maximumSize">2097152</param>-->
+                <!--&lt;!&ndash;格式&ndash;&gt;-->
+                <!--<param name="fileUpload.allowedExtensions">.jpg,.md,.txt</param>-->
+            <!--</interceptor-ref>-->
+        </action>
+        <action name="baseDict_*" class="baseDictAction" method="{1}">
+
+        </action>
+
+    </package>
+</struts>
