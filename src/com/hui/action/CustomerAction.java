@@ -10,7 +10,6 @@ import com.opensymphony.xwork2.ModelDriven;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,7 +119,6 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
         }
         //调用业务层的方法获取返回的分页类
         PageBeans<Customer> pageBeans=customerService.findByPage(detachedCriteria,currPage,showNum);
-        System.out.println(pageBeans.toString());
         //压入ValueStack
         ActionContext.getContext().getValueStack().push(pageBeans);
         return "findByPage";

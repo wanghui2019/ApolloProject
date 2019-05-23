@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +24,7 @@
 </HEAD>
 <BODY>
 	<FORM id="customerForm" name="customerForm"
-		action="${pageContext.request.contextPath }/linkmanServlet?method=list"
+		action="${pageContext.request.contextPath }/linkMans_findAll.action"
 		method=post>
 		
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
@@ -84,24 +85,35 @@
 													<TD>性别</TD>
 													<TD>办公电话</TD>
 													<TD>手机</TD>
+													<TD>邮箱</TD>
+													<TD>qq</TD>
+													<TD>地址</TD>
+													<TD>简介</TD>
+													<TD>相关客户</TD>
 													<TD>操作</TD>
 												</TR>
-												<c:forEach items="${list }" var="linkman">
+												<s:iterator value="list" var="c">
 												<TR
 													style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
-													<TD>${linkman.lkmName }</TD>
-													<TD>${linkman.lkmGender }</TD>
-													<TD>${linkman.lkmPhone }</TD>
-													<TD>${linkman.lkmMobile }</TD>
-													
+													<TD><s:property value="#c.lkm_name"/></TD>
+													<TD><s:property value="#c.lkm_gender"/></TD>
+													<TD><s:property value="#c.lkm_phone"/></TD>
+													<TD><s:property value="#c.lkm_mobile"/></TD>
+													<TD><s:property value="#c.lkm_email"/></TD>
+													<TD><s:property value="#c.lkm_qq"/></TD>
+													<TD><s:property value="#c.lkm_position"/></TD>
+													<TD><s:property value="#c.lkm_memo"/></TD>
+													<TD><s:property value="#c.customer.cust_name"/></TD>
+
+
 													<TD>
 													<a href="${pageContext.request.contextPath }/linkmanServlet?method=edit&lkmId=${linkman.lkmId}">修改</a>
 													&nbsp;&nbsp;
 													<a href="${pageContext.request.contextPath }/linkmanServlet?method=delete&lkmId=${linkman.lkmId}">删除</a>
 													</TD>
 												</TR>
-												
-												</c:forEach>
+												</s:iterator>
+
 
 											</TBODY>
 										</TABLE>
@@ -112,19 +124,42 @@
 									<TD><SPAN id=pagelink>
 											<DIV
 												style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
-												共[<B>${total}</B>]条记录,[<B>${totalPage}</B>]页
+												共[<B><s:property value="totalNum"/> </B>]条记录,[<B><s:property value="totalPage"/> </B>]页
 												,每页显示
-												<select name="pageSize">
+												<select name="showNum" onchange="to_page()">
 												
-												<option value="1" <c:if test="${pageSize==1 }">selected</c:if>>1</option>
-												<option value="30" <c:if test="${pageSize==30 }">selected</c:if>>30</option>
+													<option value="3" <s:if test="showNum==3">selected</s:if> >3</option>
+												<option value="5" <s:if test="showNum==5">selected</s:if>>5</option>
+												<option value="10" <s:if test="showNum==10">selected</s:if>>10</option>
 												</select>
 												条
-												[<A href="javascript:to_page(${page-1})">前一页</A>]
-												<B>${page}</B>
-												[<A href="javascript:to_page(${page+1})">后一页</A>] 
+												[<A href="javascript:to_page(1)">首页</A>]
+												[<A href="javascript:to_page(<s:property value="currPage-1"/>)">前一页</A>]
+												&nbsp;&nbsp;
+												<B>
+													<s:iterator  var="i" begin="1" end="totalPage">
+														<%--判断如果是在当前页，当前页直接显示，否则将其它的编程链接形式--%>
+														<s:if test="#i==currPage">
+															<s:property value="#i"/>&nbsp;
+														</s:if>
+														<s:else>
+															<a href="javascript:to_page(<s:property value="#i"/>)">
+                                                                <s:property value="#i"/>&nbsp;
+                                                            </a>
+														</s:else>
+													</s:iterator>
+												</B>
+												&nbsp;&nbsp;
+												<s:if test="currPage!=totalPage">
+												[<A href="javascript:to_page(<s:property value="currPage+1"/> )">后一页</A>]
+												[<A href="javascript:to_page(<s:property value="totalPage"/>)">尾页</A>]
+												</s:if>
+												<s:else>
+													[<A href="javascript:to_page(<s:property value="totalPage"/> )">后一页</A>]
+													[<A href="javascript:to_page(<s:property value="totalPage"/>)">尾页</A>]
+												</s:else>
 												到
-												<input type="text" size="3" id="page" name="page" />
+												<input type="text" size="3" id="page" name="currPage" />
 												页
 												
 												<input type="button" value="Go" onclick="to_page()"/>

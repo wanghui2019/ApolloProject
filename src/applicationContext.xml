@@ -39,6 +39,7 @@
                 <value>com/hui/domain/User.hbm.xml</value>
                 <value>com/hui/domain/BaseDict.hbm.xml</value>
                 <value>com/hui/domain/Customer.hbm.xml</value>
+                <value>com/hui/domain/LinkMans.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -54,6 +55,9 @@
     <bean id="baseDictService" class="com.hui.service.impl.BaseDictServiceImpl">
         <property name="baseDictDao" ref="baseDictDao"/>
     </bean>
+    <bean id="linkMansService" class="com.hui.service.impl.LinkMansServiceImpl">
+        <property name="linkMansDao" ref="linkMansDao"/>
+    </bean>
 
     <bean id="userAction" class="com.hui.action.UserAction" scope="prototype">
         <property name="userService" ref="userService"/>
@@ -64,6 +68,9 @@
     <bean id="baseDictAction" class="com.hui.action.BaseDictAction" scope="prototype">
         <property name="baseDictService" ref="baseDictService"/>
     </bean>
+    <bean id="linkMansAction" class="com.hui.action.LinkMansAction" scope="prototype">
+        <property name="linkMansService" ref="linkMansService"/>
+    </bean>
 
     <bean id="userDao" class="com.hui.dao.impl.UserDaoImpl">
         <!--Dao层要注入sessionFactory才能和数据库交互-->
@@ -73,6 +80,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="baseDictDao" class="com.hui.dao.impl.BaseDictDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="linkMansDao" class="com.hui.dao.impl.LinkMansDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 

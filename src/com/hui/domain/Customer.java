@@ -1,5 +1,8 @@
 package com.hui.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Customer {
     private Long cust_id;   //自增
     private String cust_name;  //张三
@@ -10,6 +13,17 @@ public class Customer {
     private String cust_mobile;  //电话
 
     private String cust_image;
+
+    //关联联系人
+    private Set<LinkMans> linkMans=new HashSet<>();
+
+    public Set<LinkMans> getLinkMans() {
+        return linkMans;
+    }
+
+    public void setLinkMans(Set<LinkMans> linkMans) {
+        this.linkMans = linkMans;
+    }
 
     public String getCust_image() {
         return cust_image;
