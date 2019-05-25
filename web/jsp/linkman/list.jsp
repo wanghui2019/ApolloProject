@@ -10,6 +10,17 @@
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$.post("${pageContext.request.contextPath }/customer_findAllByAjax.action",{},function(data,status){
+				$(data).each(function (index,obj) {
+					$("#linkMan_Customer").append("<option value='"+obj.cust_id+"'>"+obj.cust_name+"</option>");
+				});
+				$("#linkMan_Customer option[value='${customer.cust_id}']").attr("selected","selected");
+			},"json");
+
+		});
+	</script>
 <SCRIPT language=javascript>
 	function to_page(page){
 		if(page){
@@ -63,7 +74,15 @@
 												<TR>
 													<TD>联系人名称：</TD>
 													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="lkmName"></TD>
+														style="WIDTH: 80px" maxLength=50 name="lkm_name">
+													</TD>
+
+													<TD>相关客户：</TD>
+													<TD>
+														<select id="linkMan_Customer" name="customer.cust_id">
+															<option value="">--请选择--</option>
+														</select>
+													</TD>
 													
 													<TD><INPUT class=button id=sButton2 type=submit
 														value=" 筛选 " name=sButton2></TD>

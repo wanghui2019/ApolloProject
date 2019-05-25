@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -46,6 +47,15 @@ public class LinkMansAction extends ActionSupport implements ModelDriven<LinkMan
 
     public String findAll(){
         DetachedCriteria detachedCriteria=DetachedCriteria.forClass(LinkMans.class);
+        //添加查询条件
+        if (linkMans.getLkm_name()!=null && !"".equals(linkMans.getLkm_name())){
+            detachedCriteria.add(Restrictions.like("lkm_name","%"+linkMans.getLkm_name().trim()+"%"));
+        }
+        if (linkMans.getCustomer()!=null){
+            if (linkMans.getCustomer().getCust_id()!=null && !"".equals(linkMans.getCustomer().getCust_id())){
+                detachedCriteria.add(Restrictions.eq("customer.cust_id",linkMans.getCustomer().getCust_id()));
+            }
+        }
         //查找联系人
         PageBeans<LinkMans> pageBeans=linkMansService.findAll(detachedCriteria,currPage,showNum);
         System.out.println(pageBeans.toString());

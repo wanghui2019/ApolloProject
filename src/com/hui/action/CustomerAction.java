@@ -193,7 +193,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
         return "successUpdate";
     }
 
-    public String findAll() throws IOException {
+    public String findAll(){
         List<Customer> list = customerService.findAll();
 //        JsonConfig jsonConfig=new JsonConfig();
 //        jsonConfig.setExcludes(new String[]{"linkMans","cust_phone","cust_mobile","cust_image","basesource","baseindustry","baselevel"});
@@ -205,6 +205,16 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
         //集合使用set比较方便
         ActionContext.getContext().getValueStack().set("list",list);
         return "findAllSuccess";
+    }
+
+    public String findAllByAjax() throws IOException {
+        List<Customer> list = customerService.findAll();
+        JsonConfig jsonConfig=new JsonConfig();
+        jsonConfig.setExcludes(new String[]{"linkMans","cust_phone","cust_mobile","cust_image","basesource","baseindustry","baselevel"});
+        JSONArray jsonArray=JSONArray.fromObject(list,jsonConfig);
+        ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+        ServletActionContext.getResponse().getWriter().println(jsonArray.toString());
+        return NONE;
     }
 
 }
