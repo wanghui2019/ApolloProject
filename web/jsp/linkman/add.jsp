@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,15 +9,23 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
+<script type="text/javascript" src="../../js/jquery-1.4.4.min.js"></script>
 
+	<%--<script type="text/javascript">--%>
+		<%--$(function () {--%>
+			<%--$.post("${pageContext.request.contextPath}/customer_findAll.action",{},function(data,status){--%>
+				<%--$(data).each(function (index,obj) {--%>
+					<%--alert(obj.cust_name);--%>
+				<%--});--%>
+			<%--},"json")--%>
+		<%--});--%>
+	<%--</script>--%>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
 </HEAD>
 <BODY>
-	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/linkmanServlet?method=addsubmit"
-		method=post>
-		
+
+	<s:form id="form1" name="form1" action="linkMans_save.action" method="POST" namespace="/" theme="simple">
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
@@ -47,32 +56,48 @@
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<tr>
 								<td>所属客户：</td>
-								<td colspan="3"><input type="text" name="custId" style="WIDTH: 180px"/></td>
+								<td>
+									<s:select list="list" headerValue="--请选择--" headerKey="" listKey="cust_id" listValue="cust_name" name="customer.cust_id"/>
+								</td>
+								<td>联系人职位 ：</td>
+								<td>
+									<s:textfield cssClass="textbox" cssStyle="WIDTH: 180px" id="sChannel2" maxLength="50" name="lkm_position"/>
+								</td>
 							</tr>
 							<TR>
 								<td>联系人名称：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmName">
+									<s:textfield cssClass="textbox" cssStyle="WIDTH: 180px" id="sChannel2" maxLength="50" name="lkm_name"/>
 								</td>
 								<td>联系人性别：</td>
 								<td>
-								<input type="radio" value="1" name="lkmGender">男
-								<input type="radio" value="2" name="lkmGender">女
+									<s:radio list="#{'1':'男','2':'女'}" name="lkm_gender"/>
 								</td>
 							</TR>
 							<TR>
 								<td>联系人办公电话 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmPhone">
+									<s:textfield cssClass="textbox" cssStyle="WIDTH: 180px" id="sChannel2" maxLength="50" name="lkm_phone"/>
 								</td>
 								<td>联系人手机 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="lkmMobile">
+									<s:textfield cssClass="textbox" cssStyle="WIDTH: 180px" id="sChannel2" maxLength="50" name="lkm_mobile"/>
 								</td>
 							</TR>
+							<TR>
+								<td>联系人邮箱 ：</td>
+								<td>
+									<s:textfield cssClass="textbox" cssStyle="WIDTH: 180px" id="sChannel2" maxLength="50" name="lkm_email"/>
+								</td>
+								<td>联系人QQ ：</td>
+								<td>
+									<s:textfield cssClass="textbox" cssStyle="WIDTH: 180px" id="sChannel2" maxLength="50" name="lkm_qq"/>
+								</td>
+							</TR>
+							<td>联系人简介 ：</td>
+							<td>
+								<s:textarea  id="sChannel2" cssStyle="WIDTH: 180px"  rows="3" cols="20" name="lkm_memo"/>
+							</td>
 							<tr>
 								<td rowspan=2>
 								<INPUT class=button id=sButton2 type=submit
@@ -100,6 +125,6 @@
 				</TR>
 			</TBODY>
 		</TABLE>
-	</FORM>
+	</s:form>
 </BODY>
 </HTML>

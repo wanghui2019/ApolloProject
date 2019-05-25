@@ -96,7 +96,10 @@
 												<TR
 													style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
 													<TD><s:property value="#c.lkm_name"/></TD>
-													<TD><s:property value="#c.lkm_gender"/></TD>
+                                                    <td>
+                                                    <s:if test="#c.lkm_gender==1">男</s:if>
+                                                    <s:if test="#c.lkm_gender==2">女</s:if>
+                                                    </td>
 													<TD><s:property value="#c.lkm_phone"/></TD>
 													<TD><s:property value="#c.lkm_mobile"/></TD>
 													<TD><s:property value="#c.lkm_email"/></TD>
@@ -107,9 +110,9 @@
 
 
 													<TD>
-													<a href="${pageContext.request.contextPath }/linkmanServlet?method=edit&lkmId=${linkman.lkmId}">修改</a>
+													<a href="${pageContext.request.contextPath }/linkMans_edit.action?lkm_id=<s:property value="lkm_id"/> ">修改</a>
 													&nbsp;&nbsp;
-													<a href="${pageContext.request.contextPath }/linkmanServlet?method=delete&lkmId=${linkman.lkmId}">删除</a>
+													<a href="${pageContext.request.contextPath }/linkMans_delete.action?lkm_id=<s:property value="lkm_id"/> ">删除</a>
 													</TD>
 												</TR>
 												</s:iterator>

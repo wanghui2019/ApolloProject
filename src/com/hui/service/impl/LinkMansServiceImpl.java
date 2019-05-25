@@ -5,9 +5,11 @@ import com.hui.domain.LinkMans;
 import com.hui.domain.PageBeans;
 import com.hui.service.LinkMansService;
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public class LinkMansServiceImpl implements LinkMansService {
     private LinkMansDao linkMansDao;
 
@@ -34,4 +36,26 @@ public class LinkMansServiceImpl implements LinkMansService {
         pageBeans.setList(list);
         return pageBeans;
     }
+
+    @Override
+    public void save(LinkMans linkMans) {
+        linkMansDao.save(linkMans);
+    }
+
+    @Override
+    public LinkMans findByID(long lkm_id) {
+        return linkMansDao.findByID(lkm_id);
+    }
+
+    @Override
+    public void delete(LinkMans linkMans) {
+        linkMansDao.delete(linkMans);
+    }
+
+    @Override
+    public void update(LinkMans linkMans) {
+        linkMansDao.update(linkMans);
+    }
+
+
 }

@@ -7,12 +7,16 @@ import com.hui.utils.UploadUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class CustomerAction extends ActionSupport implements ModelDriven<Customer> {
     private Customer customer=new Customer();
@@ -187,6 +191,20 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
         //System.out.println(customer.toString());
         customerService.update(customer);
         return "successUpdate";
+    }
+
+    public String findAll() throws IOException {
+        List<Customer> list = customerService.findAll();
+//        JsonConfig jsonConfig=new JsonConfig();
+//        jsonConfig.setExcludes(new String[]{"linkMans","cust_phone","cust_mobile","cust_image","basesource","baseindustry","baselevel"});
+//        //转成JSON
+//        JSONArray jsonArray = JSONArray.fromObject(list,jsonConfig);
+//        ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+//        //System.out.println(jsonArray.toString());
+//        ServletActionContext.getResponse().getWriter().println(jsonArray.toString());
+        //集合使用set比较方便
+        ActionContext.getContext().getValueStack().set("list",list);
+        return "findAllSuccess";
     }
 
 }

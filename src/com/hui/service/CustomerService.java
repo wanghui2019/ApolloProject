@@ -4,6 +4,8 @@ import com.hui.domain.Customer;
 import com.hui.domain.PageBeans;
 import org.hibernate.criterion.DetachedCriteria;
 
+import java.util.List;
+
 public interface CustomerService {
     //保存用户
     void save(Customer customer);
@@ -15,4 +17,6 @@ public interface CustomerService {
     void delete(Customer customer);
     //更新数据
     void update(Customer customer);
+
+    List<Customer> findAll();
 }

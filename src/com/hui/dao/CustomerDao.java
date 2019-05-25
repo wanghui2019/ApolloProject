@@ -18,4 +18,6 @@ public interface CustomerDao {
     void delete(Customer customer);
     //更新客户
     void update(Customer customer);
+
+    List<Customer> findAll();
 }

@@ -2,7 +2,6 @@ package com.hui.action;
 
 import com.hui.domain.BaseDict;
 import com.hui.service.BaseDictService;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONArray;

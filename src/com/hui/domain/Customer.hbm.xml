@@ -20,7 +20,9 @@
         <many-to-one name="baselevel" class="com.hui.domain.BaseDict" column="cust_level" />
 
         <!--配置关联联系人-->
-        <set name="linkMans">
+        <!--hiberate默认删除一的一方时，能删除，但多的一方关联的主键被设置为空，设置cascade="delete"可以级联删除-->
+        <!--inverse="true"让一的一方放弃对多的一方关联数据的维护,默认的inverse="false"-->
+        <set name="linkMans" cascade="delete" inverse="true">
             <key column="lkm_cust_id"/>
             <one-to-many class="com.hui.domain.LinkMans"/>
         </set>
